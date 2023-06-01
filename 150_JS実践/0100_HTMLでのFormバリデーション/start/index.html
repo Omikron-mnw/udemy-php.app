@@ -22,7 +22,7 @@
             <form action="/poll/part4/end/login" method="POST">
               <div class="form-group">
                 <label for="id">ユーザーID</label>
-                <input id="id" type="text" name="id" class="form-control" />
+                <input id="id" type="text" name="id" class="form-control" required maxlength="10" pattern="[a-zA-Z0-9]+" autofocus tabindex="1" />
               </div>
               <div class="form-group">
                 <label for="pwd">パスワード</label>
@@ -30,6 +30,10 @@
                   id="pwd"
                   type="password"
                   name="pwd"
+                  minlength="4"
+                  required
+                  autofocus
+                  tabindex="2"
                   class="form-control"
                 />
               </div>
