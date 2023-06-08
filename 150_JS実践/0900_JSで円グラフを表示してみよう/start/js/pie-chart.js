@@ -1,38 +1,48 @@
 poll_chart();
 function poll_chart() {
     const $chart = document.querySelector('#chart');
+
+    if (!$chart) {
+        return;
+    }
+
     const ctx = $chart.getContext('2d');
 
-    new Chart(ctx,  {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    const likes = $chart.dataset.likes;
+    const dislikes = $chart.dataset.dislikes;
+
+let data;
+
+    if (likes == 0 && dislikes == 0) {
+        data = {
+            labels: ['まだ投票がありません。'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: [1],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
+                    '#9ca3af'
+                ]
             }]
-        },
+        }
+    } else {
+        data = {
+            labels: ['賛成', '反対'],
+            datasets: [{
+                data: [likes, dislikes],
+                backgroundColor: [
+                    '#34d399',
+                    '#f87171',
+                ]
+            }]
+        }
+    }
+    new Chart(ctx,  {
+        type: 'pie',
+        data: data,
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            legend: {
+                position: 'bottom',
+                labels: {
+                    fontasize: 18
                 }
             }
         }
